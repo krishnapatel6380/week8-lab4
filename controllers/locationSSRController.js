@@ -24,21 +24,21 @@ const renderLocation = async (req, res) => {
     }
     res.render("singlelocation", { location }); // Render index.ejs with 
   } catch (error) {
-    console.error("Error rendering Goal:", error);
+    console.error("Error rendering Location:", error);
     res.status(500).render("error");
   }
 };
  
 const renderForm = (req, res) => {
   try {
-    res.render("addlocation"); // Assuming "addgoal.ejs" is located in the "views" directory
+    res.render("addlocation"); // Assuming "addgocation.ejs" is located in the "views" directory
   } catch (error) {
     console.error("Error rendering form", error);
     res.status(500).render("error");
   }
 };
 
-// Controller function to handle adding a new goal (used for rendering and API)
+// Controller function to handle adding a new gocation (used for rendering and API)
 const addLocation = async (req, res) => {
   try {
     const { name, address, latitude,longitude } = req.body;
@@ -46,7 +46,7 @@ const addLocation = async (req, res) => {
   //  const achieved = req.body.achieved === "on";
     const newLocation = new Location({ name, address, latitude,longitude});
     await newLocation.save();
-    // Redirect to the main page after successfully adding the goal
+    // Redirect to the main page after successfully adding the gocation
     console.log("Location added successfully");
     res.redirect("/"); // Adjust the URL as needed
   } catch (error) {
@@ -59,8 +59,8 @@ const addLocation = async (req, res) => {
 const deleteLocation= async (req, res) => {
   try {
     const { id } = req.params;
-    const goal = await Location.findByIdAndDelete({ _id: id });
-    if (!goal) {
+    const gocation = await Location.findByIdAndDelete({ _id: id });
+    if (!gocation) {
       return res.status(404).render("notfound");
     }
     console.log("Location delted successfully");
@@ -72,19 +72,19 @@ const deleteLocation= async (req, res) => {
 };
 
 
-// Update Goal by ID
+// Update Location by ID
 const renderUpdateLocation = async (req, res) => {
   try {
     const { id } = req.params;
      
-    // Fetch the goal by id
+    // Fetch the gocation by id
     const location = await Location.findById(id);
 
     if (!location) {
       return res.render("notfound");
     }
 
-    // Render the singlegoal.ejs template with the goal data
+    // Render the singlegocation.ejs template with the gocation data
     res.render("updatelocation", { location });
 
   } catch (error) {
@@ -93,7 +93,7 @@ const renderUpdateLocation = async (req, res) => {
   }
 };
 
-// Handle POST request to update the goal
+// Handle POST request to update the gocation
 const updateLocation = async (req, res) => {
   try {
     const { id } = req.params;
@@ -101,7 +101,7 @@ const updateLocation = async (req, res) => {
     const { name, address, latitude,longitude} = req.body;
     const updatedLocationData = { name, address, latitude,longitude };
 
-    // Update the goal with the new data
+    // Update the gocation with the new data
     const updatedLocation = await Location.findOneAndUpdate({ _id: id }, updatedLocationData, { new: true });
 
     if (!updatedLocation) {

@@ -4,8 +4,8 @@ const methodOverride = require('method-override')
 
 const connectDB = require("./config/db");
 
-const blogAPI = require("./controllers/locationAPIController");
-const blogSSR = require("./controllers/locationSSRController");
+const locationAPI = require("./controllers/locationAPIController");
+const locationSSR = require("./controllers/locationSSRController");
 
 //Important: will be discussed next week
 app.use(express.json());
@@ -25,27 +25,27 @@ connectDB();
 
 // SSR
 // Route to render index.html with locations using EJS
-app.get("/", blogSSR.renderLocations);
+app.get("/", locationSSR.renderLocations);
 // Define a route to render the addlocation.ejs view
-app.get("/addlocation", blogSSR.renderForm);
+app.get("/addlocation", locationSSR.renderForm);
 // Route to add  location using EJ
-app.post("/addlocation", blogSSR.addLocation);
+app.post("/addlocation", locationSSR.addLocation);
 // Define a route to render the singlelocation.ejs view
-app.get("/single-location/:id", blogSSR.renderLocation);
+app.get("/single-location/:id", locationSSR.renderLocation);
 
 // API
 // GET all Locations
-app.get("/api/locations", blogAPI.getLocations);
+app.get("/api/locations", locationAPI.getLocations);
 // POST a new Location
-app.post("/api/locations", blogAPI.addLocation);
+app.post("/api/locations", locationAPI.addLocation);
 // GET a single Location
-app.get("/api/locations/:id", blogAPI.getLocation);
+//app.get("/api/locations/:id", locationAPI.getLocation);
 // Update Location using PUT
-app.put("/api/locations/:id", blogAPI.updateLocation);
+//app.put("/api/locations/:id", blogAPI.updateLocation);
 // DELETE a Location
-app.delete("/api/locations/:id", blogAPI.deleteLocation);
+//app.delete("/api/locations/:id", blogAPI.deleteLocation);
 // DELETE all Location
-app.delete("/api/locations", blogAPI.deleteAllLocations);
+//app.delete("/api/locations", locationAPI.deleteAllLocations);
 
 const PORT = 4000;
 
