@@ -59,11 +59,11 @@ const addLocation = async (req, res) => {
 const deleteLocation= async (req, res) => {
   try {
     const { id } = req.params;
-    const gocation = await Location.findByIdAndDelete({ _id: id });
-    if (!gocation) {
+    const location = await Location.findByIdAndDelete({ _id: id });
+    if (!location) {
       return res.status(404).render("notfound");
     }
-    console.log("Location delted successfully");
+    console.log("Location deleted successfully");
     res.redirect("/"); // Adjust the URL as needed
   } catch (error) {
     console.error("Error deleteing Location:", error);
@@ -124,7 +124,7 @@ module.exports = {
   renderLocation,
   addLocation,
   renderForm,
-//  deleteLocation,
-//  updateLocation,
- // renderUpdateLocation,
+  deleteLocation,
+  updateLocation,
+  renderUpdateLocation,
 };

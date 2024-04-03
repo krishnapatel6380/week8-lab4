@@ -24,6 +24,21 @@ const addLocation= async (req, res) => {
   }
 };
 
+// Delete Location by ID
+const deleteLocation = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const location = await Location.findByIdAndDelete({ _id: id });
+    if (!location) {
+      return res.status(404).json({ message: "Location not found" });
+    }
+    res.status(200).json({ message: "Location deleted successfully" });
+  } catch (error) {
+    console.error("Error rendering index.html:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
 // Delete all Locations
 const deleteAllLocations = async (req, res) => {
   try {
@@ -40,6 +55,7 @@ const deleteAllLocations = async (req, res) => {
 module.exports = {
   getLocations,
   addLocation,
+  deleteLocation,
   deleteAllLocations,
 };
 

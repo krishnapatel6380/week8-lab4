@@ -33,6 +33,10 @@ app.post("/addlocation", locationSSR.addLocation);
 // Define a route to render the singlelocation.ejs view
 app.get("/single-location/:id", locationSSR.renderLocation);
 
+app.put("/single-location/:id", locationSSR.updateLocation);
+// Define goal to update
+app.get("/single-location/update/:id", locationSSR.renderUpdateLocation);
+
 // API
 // GET all Locations
 app.get("/api/locations", locationAPI.getLocations);
